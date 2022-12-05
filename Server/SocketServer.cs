@@ -12,6 +12,7 @@ namespace Server
         private List<Socket> ClientSockets;
         private const int BUFFER_SIZE = 2048;
         private byte[] buffer;
+        GameFlow GameState;
         public int Port
         {
             get;
@@ -33,6 +34,7 @@ namespace Server
         {
             Port = _port;
             buffer = new byte[BUFFER_SIZE];
+            GameState = new GameFlow();
 
             IPHostEntry hostEntry = Dns.GetHostEntry(Dns.GetHostName());
             ServerIP = hostEntry.AddressList[0];
@@ -64,11 +66,13 @@ namespace Server
                 current = ServerSocket.EndAccept(AR);
             } catch (Exception e)
             {
+                Console.WriteLine("Accept failed: {0}", e.Message);
                 return;
             }
             ClientSockets.Add(current);
             current.BeginReceive(buffer, 0, BUFFER_SIZE, SocketFlags.None, ReceiveCallback, current);
             Console.WriteLine("Client {0} connected, waiting for request...", current.RemoteEndPoint);
+            // Start the timer to start the game => If the game start => Send the information to all sockets
             ServerSocket.BeginAccept(AcceptCallback, null);
         }
 
@@ -94,24 +98,22 @@ namespace Server
             string text = Encoding.ASCII.GetString(receiveBuffer);
             Console.WriteLine("Received Text: " + text);
 
-            if (text.ToLower() == "get time") // Client requested time
+            if (text.ToLower() == "player has no answer") // Timeout 
             {
-                Console.WriteLine("Text is a get time request");
-                byte[] data = Encoding.ASCII.GetBytes(DateTime.Now.ToLongTimeString());
-                current.Send(data);
-                Console.WriteLine("Time sent to client");
+                // Update the game flow: remove this player out of the game, next player, , next question
+
             }
-            else if (text.ToLower() == "exit") // Client wants to exit gracefully
-            {
-                // Always Shutdown before closing
-                current.Shutdown(SocketShutdown.Both);
-                current.Close();
-                ClientSockets.Remove(current);
-                Console.WriteLine("Client disconnected");
-                return;
+            else if (text.ToLower() == "Player skipped the turn") { 
+                // Update the game flow: next player, same question 
+                // Send the question to the next player
             }
-            else
+            else // User answer the question
             {
+                // Case 1: User answer the correct answer
+                // Update the game flow: remove this player out of the game, next player, next question
+
+                // Case 2: User answer the wrong answer
+                // Update the game flow: remove this player out of the game, next player, , next question
                 Console.WriteLine("Text is an invalid request");
                 byte[] data = Encoding.ASCII.GetBytes("Invalid request");
                 current.Send(data);

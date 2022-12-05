@@ -1,0 +1,80 @@
+create database game;
+
+use game;
+
+create table quizzes(
+	id int auto_increment,
+    question varchar(200),
+    correct_answer varchar(200),
+    wrong_answer_1 varchar(200),
+    wrong_answer_2 varchar(200),
+    wrong_answer_3 varchar(200),
+    primary key(id)
+);
+
+insert into quizzes(question, correct_answer, wrong_answer_1, wrong_answer_2, wrong_answer_3) values
+	('Which team play at Anfield?','Liverpool','Manchester City','Aston Villa','Chelsea'),
+    ('Which English Premier side are known as The Red Devils?','Manchester United','Arsenal','Newcastle United','Chelsea'),
+    ('How many lions are on the England badge?','3','1','2','4'),
+    ('Which international club does Paul Pogba play for?','France','England','Brazil','Wales'),
+    ('England have won the World Cup once. But in which year did they lift the trophy?','1966','2000','1994','1982'),
+    ('How long is a game of professional football?','90 minutes','75 minutes','45 minutes','60 minutes'),
+    ('What happens if a referee shows a player a red card?','They get sent off the pitch','They have to do 10 laps of the ground','The other team automatically scores a goal','They get detention after the game'),
+    ('Who is the current captain of the English women national team?','Leah Williamson','Casey Stoney','Fara Williams','Toni Duggan'),
+    ('Which Premier League team are famous for wearing black and white stripes?','Newcastle United','Crystal Palace','Tottenham Hotspur','Everton'),
+    ('What kind of animal is featured on Leicester City badge?','A fox','A cat','A dog','An elephant'),
+    ('Which England legend is married to Victoria Beckham?','David Beckham','Keith Beckham','Sam Beckham','Stormzy'),
+    ('How many times have Brazil won the World Cup?','5','0','2','4'),
+    ('Which team does Harry Kane play for?','Tottenham Hotspur','Arsenal','Chelsea','West Ham United'),
+    ('How many teams play in the FIFA World Cup?','32','16','24','20'),
+    ('Which football star is on the cover of the FIFA 18 game?','Cristiano Ronaldo','Wayne Rooney','Paul Pogba','Lionel Messi'),
+    ('Which country did England play in the 1966 World Cup semi-finals?','Portugal','Uruguay','Mexico','Brazil'),
+    ('How many times has Liverpool won the UEFA Champions League (formerly known as the European Cup)?','6','2','4','8'),
+    ('Yellow and red cards were first introduced at which year’s World Cup?','1970','1974','1966','2002'),
+    ('Terry McCann and Wolfie Smith both supported which team?','Fulham','West Ham','Chelsea','Arsenal'),
+    ('The 1954 FIFA World Cup Final saw West Germany beat which heavily fancied team?','Hungary','Egypt','China','England'),
+    ('West Ham have retired which number shirt in tribute to World Cup winner Bobby Moore?','6','3','4','5'),
+    ('Which South American team beat Scotland 3-1 in their opening match of the 1978 World Cup Finals?','Peru','Ecuador','Chile','Argentina'),
+    ('How many Premier League clubs competed in the first Premier League season?','22','21','20','19'),
+    ('Which player who’s not British or Irish has the most Premier League Championship Medals?','Ole Gunnar Solskjaer','Cristiano Ronaldo','Carlos Tevez','Harry Maguire'),
+    ('Which year was the last time England failed to qualify for the World Cup?','1994','1990','1998','2002'),
+    ('The images of Terry Butcher in his blood-soaked shirt was taken after England played which country in 1989?','Sweden','Argentina','Brazil','Mexico'),
+    ('Who won the Ballon d Or three times, in 1983, 1984 and 1985?','Michel Platini','Pele','Diego Maradonna','Ruud Gullit'),
+    ('Name the first country to host the World Cup twice?','Mexico','USA','England','France'),
+    ('How many cities in England have 2 or more league teams in the top four divisions of English football?','8','5','6','7'),
+    ('How many penalties are usually taken in a penalty shoot-out?','5','6','7','8'),
+    ('Cristiano Ronaldo returned to Old Trafford and scored twice on his second debut against which club?','Newcastle United','Manchester City','Liverpool','Everton'),
+    ('Back in August, Romelu Lukaku scored his first ever goal for Chelsea against which club in a 2-0 away win?','Arsenal','Fulham','Arsenal','Leicester City'),
+    ('Where does Kevin De Bruyne come from?','Belgium','Vietnam','Brazil','Senegal'),
+    ('Which country hosted the 2010 Football World Cup?','South Africa','Korea','Japan','Vietnam'),
+    ('Which player, with 653 games, has made the most Premier League appearances?','Gareth Barry','Ryan Shawcross','Ryan Giggs','Yaya Toure'),
+    ('With 260 goals, who is the Premier League all-time top scorer?','Alan Shearer','Sergio Aguero','Wayne Rooney','Thierry Henry'),
+    ('Which team won the first Premier League title?','Manchester United','Nottingham Forest','Aston Villa','Arsenal'),
+    ('With 202 clean sheets, which goalkeeper has the best record in the Premier League?','Petr Cech','David De Gea','Joe Hart','David Seaman'),
+    ('Which country won the first ever World Cup in 1930?','Uruguay','Brazil','France','Italy'),
+    ('Which country has appeared in three World Cup finals, but never won the competition?','Netherlands','Spain','Portugal','Greece'),
+    ('In which World Cup did Diego Maradona score his infamous Hand of God goal?','Mexico 1986','Korea 2002','Qatar 2022','South Africa 2010'),
+    ('The record number of World Cup goals is 16, scored by who?','Miroslav Klose','Franz Beckenbauer','Gary Lineker','Pele'),
+    ('Where does Sadio Mane come from?','Senegal','Egypt','Ghana','Cameroon'),
+    ('The Scudetto is the name given to the league title in which European country?','Italy','Germany','France','England'),
+    ('How many teams play in the group stages of the UEFA Champions League?','32','20','24','28'),
+    ('Which nation won UEFA Euro 1992 despite not initially qualifying?','Denmark','Austria','Greece','Hungary'),
+    ('When was the first Premier League played?','1992','1994','19960','1996'),
+    ('In 1990, this team failed to score even one goal in the World Cup final.','Argentina','Mexico','England','Germany'),
+    ('This player scored the fastest hat-trick in the Premier League.','Sadio Mane','Sergio Aguero','Robin Van Persie','Didier Drogba'),
+    ('In 1949, an air crash killed all players present in the plane as well as others. What was the name of the club?','Torino','Manchester United','Sampdoria','Juventus'),
+    ('This manager gave David Beckham an armband','Peter Taylor','Sir Alex Ferguson','David Moyes','Erik Ten Hag'),
+    ('This Barcelona player was jailed after it was found that his passport was fake.','Ronaldinho','Ronaldo De Lima','Lionel Messi','Samuel Eto o'),
+    ('In 1958, an air crash killed all players present in the plane as well as others. What was the name of the club?','Manchester United','Chelsea','Arsenal','Aston Villa'),
+    ('Manchester City was founded in which year?','1880','1881','1882','1883'),
+    ('Wayne Rooney scored his first Premier League goal against this team.','Arsenal','Chelsea','Liverpool','Tottenham Hotspur'),
+    ('Elton John was the owner of this club.','Watford','Queens Park Ranger','Blackpool','Reading'),
+    ('How many clubs have never been relegated from the Premier League?','6','4','5','7'),
+    ('This player is the top scorer of the Champions League.','Cristiano Ronaldo','Lionel Messi','Roberto Baggio','Ronaldo De Lima'),
+    ('This club has won the most Champions League titles?','Real Madrid','Paris Saint Germain','Manchester United','Barcelona'),
+    ('Liverpool was founded in which year?','1892','1893','1894','1895');
+    
+drop database game;
+
+select * from quizzes;
+    

@@ -48,6 +48,7 @@ namespace Client
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.mainPanel);
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Who Wants to Be a Millionaire?";
             this.ResumeLayout(false);
 

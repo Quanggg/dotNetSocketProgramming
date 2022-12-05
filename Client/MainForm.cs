@@ -12,15 +12,14 @@ namespace Client
 {
     public partial class MainForm : Form
     {
-        public static void OpenPlayForm()
+        public static void OpenForm(Form form)
         {
             control.Clear();
 
-            Form playForm = new PlayForm();
-            playForm.TopLevel = false;
-            playForm.Dock = DockStyle.Fill;
-            playForm.Show();
-            control.Add(playForm);
+            form.TopLevel = false;
+            form.Dock = DockStyle.Fill;
+            form.Show();
+            control.Add(form);
         }
         public static Control.ControlCollection control;
         public MainForm()
@@ -28,11 +27,7 @@ namespace Client
             InitializeComponent();
             control = this.mainPanel.Controls;
 
-            Form registerForm = new RegisterForm();
-            registerForm.TopLevel = false;
-            registerForm.Dock = DockStyle.Fill;
-            registerForm.Show();
-            this.mainPanel.Controls.Add(registerForm);
+            OpenForm(new RegisterForm());
         }
     }
 }

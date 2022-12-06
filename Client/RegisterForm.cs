@@ -33,6 +33,7 @@ namespace Client
             if (!valid)
             {
                 //this.warnLb.Visible = true;
+                MessageBox.Show("Please enter again", "Invalid nickname");
                 return;
             }
             this.startButton.Text = "Waiting for server...";
@@ -74,24 +75,31 @@ namespace Client
                     resetState();
                 }
             };
-            if (!ClientSocket.isConnected)
+            try
             {
-                ClientSocket.SendString("register~" + nickname);
-                ClientSocket.clientSocket.BeginReceive(buffer, 0, Buffer_Size, System.Net.Sockets.SocketFlags.None, asyncCallback, null);
-            }
-            else
-            {
-                bool isConnected = await ClientSocket.ConnectToServerAsync();
-                if (isConnected)
+                if (ClientSocket.isConnected)
                 {
                     ClientSocket.SendString("register~" + nickname);
                     ClientSocket.clientSocket.BeginReceive(buffer, 0, Buffer_Size, System.Net.Sockets.SocketFlags.None, asyncCallback, null);
                 }
                 else
                 {
-                    MessageBox.Show("Please try again later", "Network error");
-                    resetState();
+                    bool isConnected = await ClientSocket.ConnectToServerAsync();
+                    if (isConnected)
+                    {
+                        ClientSocket.SendString("register~" + nickname);
+                        ClientSocket.clientSocket.BeginReceive(buffer, 0, Buffer_Size, System.Net.Sockets.SocketFlags.None, asyncCallback, null);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please try again later", "Network error");
+                        resetState();
+                    }
                 }
+            }
+            catch (Exception)
+            {
+
             }
         }
 
@@ -113,7 +121,7 @@ namespace Client
                     string[] data = text.Split('~');
                     MainForm.OpenForm(new PlayForm(nickname, data[1], data[2], data[3]));
                 }
-                else 
+                else
                 {
                     MessageBox.Show("Cannot start game", "Network error");
                     resetState();

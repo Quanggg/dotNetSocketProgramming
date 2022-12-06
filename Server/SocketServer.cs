@@ -116,16 +116,18 @@ namespace Server
                 {
                     byte[] data4 = Encoding.ASCII.GetBytes("register_success");
                     current.Send(data4);    
-                    if (GameState.getNumberOfPlayers() == 3)
+                    if (GameState.getNumberOfPlayers() == 2)
                     {
                         GameState.Start();
                         Console.WriteLine("Game started!");
+
+                        GameState.updateGameInformation();
 
                         // Announce to all players
                         for (int i = 0; i < GameState.setOfPlayers.Count;i++)
                         {
                             string playerName = GameState.setOfPlayers[i];
-                            byte[] data1 = Encoding.ASCII.GetBytes(GameState.GameInformation+String.Format("~{0}", i));
+                            byte[] data1 = Encoding.ASCII.GetBytes("game~" + GameState.GameInformation + String.Format("{0}", i));
                             Console.WriteLine(playerName + GameState.GameInformation + String.Format("~{0}", i));
                             GameState.SocketAndPlayerMapping[playerName].Send(data1);
                         }

@@ -118,13 +118,12 @@ namespace Client
                 byte[] receiveBuffer = new byte[received];
                 Array.Copy(buffer, receiveBuffer, received);
                 string text = Encoding.ASCII.GetString(receiveBuffer);
-                Console.WriteLine(text + received);
                 if (text.StartsWith("game"))
                 {
                     string[] data = text.Split('~');
                     Action action = () =>
                     {
-                        MainForm.OpenPlayForm(nickname, data[1], data[2], data[3]);
+                        MainForm.OpenForm(new PlayForm(nickname, data[1], data[2], data[3]));
                     };
                     this.BeginInvoke(action);
                 }

@@ -14,26 +14,11 @@ namespace Client
     {
         public static void OpenForm(Form form)
         {
-            try
-            {
-                panel.Controls.Clear();
-                form.TopLevel = false;
-                form.Dock = DockStyle.Fill;
-                form.Show();
-                panel.Controls.Add(form);
-            }
-            catch (Exception)
-            {
-                panel.Invoke(new Action(() => panel.Controls.Clear()));
-                //form.TopLevel = false;
-                //form.Dock = DockStyle.Fill;
-                //form.Show();
-                //form.Invoke(new Action(() => form.TopLevel = false));
-                //form.Invoke(new Action(() => form.Dock = DockStyle.Fill));
-                //form.Invoke(new Action(() => form.Show()));
-                //panel.Invoke(new Action(() => panel.Controls.Add(form)));
-            }
-
+            panel.Controls.Clear();
+            form.TopLevel = false;
+            form.Dock = DockStyle.Fill;
+            form.Show();
+            panel.Controls.Add(form);
         }
         public static Panel panel;
         public MainForm()

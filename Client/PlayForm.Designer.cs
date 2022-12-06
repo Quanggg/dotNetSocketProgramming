@@ -211,6 +211,7 @@ namespace Client
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "PlayForm";
             this.Text = "PlayForm";
+            this.Load += new System.EventHandler(this.PlayForm_Load);
             this.topPanel.ResumeLayout(false);
             this.topPanel.PerformLayout();
             this.ansBotPanel.ResumeLayout(false);

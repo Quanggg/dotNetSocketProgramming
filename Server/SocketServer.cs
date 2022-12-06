@@ -166,6 +166,9 @@ namespace Server
                 if (!GameState.setOfSkippedPlayers.Contains(GameState.getCurrentPlayer()))
                 {
                     GameState.playerSkip(GameState.getCurrentPlayer());
+                    byte[] data5 = Encoding.ASCII.GetBytes("skip_success");
+                    GameState.SocketAndPlayerMapping[GameState.getCurrentPlayer()].Send(data5);
+                    Console.WriteLine("skip_success");
                     GameState.nextPlayer();
                     if (GameState.isWin())
                     {

@@ -31,19 +31,21 @@ namespace Client
         {
             this.quizLb = new System.Windows.Forms.Label();
             this.topPanel = new System.Windows.Forms.Panel();
-            this.labelC = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.labelD = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.labelB = new System.Windows.Forms.Label();
-            this.labelA = new System.Windows.Forms.Label();
-            this.skipButton = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.playerLb = new System.Windows.Forms.Label();
+            this.noQuesLb = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.nicknameLb = new System.Windows.Forms.Label();
+            this.playerLb = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.skipButton = new System.Windows.Forms.Button();
+            this.ansBotPanel = new System.Windows.Forms.Panel();
+            this.ansTopPanel = new System.Windows.Forms.Panel();
+            this.aBtn = new System.Windows.Forms.Button();
+            this.bBtn = new System.Windows.Forms.Button();
+            this.cBtn = new System.Windows.Forms.Button();
+            this.dBtn = new System.Windows.Forms.Button();
             this.topPanel.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.ansBotPanel.SuspendLayout();
+            this.ansTopPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // quizLb
@@ -58,6 +60,8 @@ namespace Client
             // 
             // topPanel
             // 
+            this.topPanel.Controls.Add(this.noQuesLb);
+            this.topPanel.Controls.Add(this.label2);
             this.topPanel.Controls.Add(this.nicknameLb);
             this.topPanel.Controls.Add(this.playerLb);
             this.topPanel.Controls.Add(this.label1);
@@ -68,94 +72,23 @@ namespace Client
             this.topPanel.Size = new System.Drawing.Size(800, 83);
             this.topPanel.TabIndex = 2;
             // 
-            // labelC
+            // noQuesLb
             // 
-            this.labelC.Dock = System.Windows.Forms.DockStyle.Left;
-            this.labelC.Location = new System.Drawing.Point(0, 0);
-            this.labelC.Name = "labelC";
-            this.labelC.Size = new System.Drawing.Size(357, 100);
-            this.labelC.TabIndex = 3;
-            this.labelC.Text = "label1";
-            this.labelC.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.noQuesLb.Location = new System.Drawing.Point(205, 9);
+            this.noQuesLb.Name = "noQuesLb";
+            this.noQuesLb.Size = new System.Drawing.Size(40, 41);
+            this.noQuesLb.TabIndex = 5;
+            this.noQuesLb.Text = "3";
+            this.noQuesLb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // panel1
+            // label2
             // 
-            this.panel1.Controls.Add(this.labelD);
-            this.panel1.Controls.Add(this.labelC);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 350);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(800, 100);
-            this.panel1.TabIndex = 4;
-            // 
-            // labelD
-            // 
-            this.labelD.Dock = System.Windows.Forms.DockStyle.Right;
-            this.labelD.Location = new System.Drawing.Point(443, 0);
-            this.labelD.Name = "labelD";
-            this.labelD.Size = new System.Drawing.Size(357, 100);
-            this.labelD.TabIndex = 4;
-            this.labelD.Text = "label1";
-            this.labelD.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.labelB);
-            this.panel2.Controls.Add(this.labelA);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 250);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(800, 100);
-            this.panel2.TabIndex = 5;
-            // 
-            // labelB
-            // 
-            this.labelB.Dock = System.Windows.Forms.DockStyle.Right;
-            this.labelB.Location = new System.Drawing.Point(443, 0);
-            this.labelB.Name = "labelB";
-            this.labelB.Size = new System.Drawing.Size(357, 100);
-            this.labelB.TabIndex = 4;
-            this.labelB.Text = "label2";
-            this.labelB.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // labelA
-            // 
-            this.labelA.Dock = System.Windows.Forms.DockStyle.Left;
-            this.labelA.Location = new System.Drawing.Point(0, 0);
-            this.labelA.Name = "labelA";
-            this.labelA.Size = new System.Drawing.Size(357, 100);
-            this.labelA.TabIndex = 3;
-            this.labelA.Text = "label1";
-            this.labelA.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // skipButton
-            // 
-            this.skipButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.skipButton.Location = new System.Drawing.Point(12, 12);
-            this.skipButton.Name = "skipButton";
-            this.skipButton.Size = new System.Drawing.Size(60, 54);
-            this.skipButton.TabIndex = 0;
-            this.skipButton.Text = "Skip";
-            this.skipButton.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(664, 12);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(78, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "You are player:";
-            // 
-            // playerLb
-            // 
-            this.playerLb.Location = new System.Drawing.Point(748, 9);
-            this.playerLb.Name = "playerLb";
-            this.playerLb.Size = new System.Drawing.Size(40, 41);
-            this.playerLb.TabIndex = 2;
-            this.playerLb.Text = "3";
-            this.playerLb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(113, 23);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(86, 13);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Total Question is";
             // 
             // nicknameLb
             // 
@@ -168,6 +101,102 @@ namespace Client
             this.nicknameLb.Text = "nickname";
             this.nicknameLb.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // playerLb
+            // 
+            this.playerLb.Location = new System.Drawing.Point(748, 9);
+            this.playerLb.Name = "playerLb";
+            this.playerLb.Size = new System.Drawing.Size(40, 41);
+            this.playerLb.TabIndex = 2;
+            this.playerLb.Text = "3";
+            this.playerLb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(664, 12);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(78, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "You are player:";
+            // 
+            // skipButton
+            // 
+            this.skipButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.skipButton.Location = new System.Drawing.Point(12, 12);
+            this.skipButton.Name = "skipButton";
+            this.skipButton.Size = new System.Drawing.Size(60, 54);
+            this.skipButton.TabIndex = 0;
+            this.skipButton.Text = "Skip";
+            this.skipButton.UseVisualStyleBackColor = true;
+            this.skipButton.Click += new System.EventHandler(this.skipButton_Click);
+            // 
+            // ansBotPanel
+            // 
+            this.ansBotPanel.Controls.Add(this.dBtn);
+            this.ansBotPanel.Controls.Add(this.cBtn);
+            this.ansBotPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ansBotPanel.Enabled = false;
+            this.ansBotPanel.Location = new System.Drawing.Point(0, 350);
+            this.ansBotPanel.Name = "ansBotPanel";
+            this.ansBotPanel.Size = new System.Drawing.Size(800, 100);
+            this.ansBotPanel.TabIndex = 4;
+            // 
+            // ansTopPanel
+            // 
+            this.ansTopPanel.Controls.Add(this.bBtn);
+            this.ansTopPanel.Controls.Add(this.aBtn);
+            this.ansTopPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ansTopPanel.Enabled = false;
+            this.ansTopPanel.Location = new System.Drawing.Point(0, 250);
+            this.ansTopPanel.Name = "ansTopPanel";
+            this.ansTopPanel.Size = new System.Drawing.Size(800, 100);
+            this.ansTopPanel.TabIndex = 5;
+            // 
+            // aBtn
+            // 
+            this.aBtn.Dock = System.Windows.Forms.DockStyle.Left;
+            this.aBtn.Location = new System.Drawing.Point(0, 0);
+            this.aBtn.Name = "aBtn";
+            this.aBtn.Size = new System.Drawing.Size(400, 100);
+            this.aBtn.TabIndex = 0;
+            this.aBtn.Text = "A";
+            this.aBtn.UseVisualStyleBackColor = true;
+            this.aBtn.Click += new System.EventHandler(this.aBtn_Click);
+            // 
+            // bBtn
+            // 
+            this.bBtn.Dock = System.Windows.Forms.DockStyle.Right;
+            this.bBtn.Location = new System.Drawing.Point(400, 0);
+            this.bBtn.Name = "bBtn";
+            this.bBtn.Size = new System.Drawing.Size(400, 100);
+            this.bBtn.TabIndex = 1;
+            this.bBtn.Text = "B";
+            this.bBtn.UseVisualStyleBackColor = true;
+            this.bBtn.Click += new System.EventHandler(this.bBtn_Click);
+            // 
+            // cBtn
+            // 
+            this.cBtn.Dock = System.Windows.Forms.DockStyle.Left;
+            this.cBtn.Location = new System.Drawing.Point(0, 0);
+            this.cBtn.Name = "cBtn";
+            this.cBtn.Size = new System.Drawing.Size(400, 100);
+            this.cBtn.TabIndex = 1;
+            this.cBtn.Text = "C";
+            this.cBtn.UseVisualStyleBackColor = true;
+            this.cBtn.Click += new System.EventHandler(this.cBtn_Click);
+            // 
+            // dBtn
+            // 
+            this.dBtn.Dock = System.Windows.Forms.DockStyle.Right;
+            this.dBtn.Location = new System.Drawing.Point(400, 0);
+            this.dBtn.Name = "dBtn";
+            this.dBtn.Size = new System.Drawing.Size(400, 100);
+            this.dBtn.TabIndex = 2;
+            this.dBtn.Text = "D";
+            this.dBtn.UseVisualStyleBackColor = true;
+            this.dBtn.Click += new System.EventHandler(this.dBtn_Click);
+            // 
             // PlayForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -175,8 +204,8 @@ namespace Client
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.ansTopPanel);
+            this.Controls.Add(this.ansBotPanel);
             this.Controls.Add(this.quizLb);
             this.Controls.Add(this.topPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -184,8 +213,8 @@ namespace Client
             this.Text = "PlayForm";
             this.topPanel.ResumeLayout(false);
             this.topPanel.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
+            this.ansBotPanel.ResumeLayout(false);
+            this.ansTopPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -194,15 +223,17 @@ namespace Client
 
         private System.Windows.Forms.Label quizLb;
         private System.Windows.Forms.Panel topPanel;
-        private System.Windows.Forms.Label labelC;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label labelD;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Label labelB;
-        private System.Windows.Forms.Label labelA;
+        private System.Windows.Forms.Panel ansBotPanel;
+        private System.Windows.Forms.Panel ansTopPanel;
         private System.Windows.Forms.Button skipButton;
         private System.Windows.Forms.Label nicknameLb;
         private System.Windows.Forms.Label playerLb;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label noQuesLb;
+        private System.Windows.Forms.Button dBtn;
+        private System.Windows.Forms.Button cBtn;
+        private System.Windows.Forms.Button bBtn;
+        private System.Windows.Forms.Button aBtn;
     }
 }

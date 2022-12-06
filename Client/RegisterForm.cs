@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Threading;
 
 namespace Client
 {
@@ -16,6 +17,7 @@ namespace Client
         public RegisterForm()
         {
             InitializeComponent();
+            inputTb.Focus();
             try
             {
                 ClientSocket.Exit();
@@ -23,8 +25,8 @@ namespace Client
             catch (Exception)
             { }
         }
-        private byte[] buffer;
         private const int Buffer_Size = 2048;
+        private byte[] buffer = new byte[Buffer_Size];
         private void startButton_Click(object sender, EventArgs e)
         {
             if (inputTb.Text.Length == 0) return;
@@ -48,7 +50,7 @@ namespace Client
         private async void joinGame(string nickname)
         {
             // reverse this
-            AsyncCallback asyncCallback = async (param) =>
+            AsyncCallback asyncCallback = (param) =>
             {
                 int received = 0;
                 try
@@ -62,8 +64,7 @@ namespace Client
                 if (text.StartsWith("register_success"))
                 {
                     this.startButton.Invoke(new Action(() => this.startButton.Text = "Waiting for other to join..."));
-                    resetState();
-                    //startGame(nickname);
+                    startGame(nickname);
                 }
                 else if (text.StartsWith("register_fail"))
                 {
@@ -106,7 +107,7 @@ namespace Client
 
         private void startGame(string nickname)
         {
-            AsyncCallback asyncCallback = async (param) =>
+            AsyncCallback asyncCallback = (param) =>
             {
                 int received = 0;
                 try
@@ -117,10 +118,15 @@ namespace Client
                 byte[] receiveBuffer = new byte[received];
                 Array.Copy(buffer, receiveBuffer, received);
                 string text = Encoding.ASCII.GetString(receiveBuffer);
+                Console.WriteLine(text + received);
                 if (text.StartsWith("game"))
                 {
                     string[] data = text.Split('~');
-                    MainForm.OpenForm(new PlayForm(nickname, data[1], data[2], data[3]));
+                    Action action = () =>
+                    {
+                        MainForm.OpenPlayForm(nickname, data[1], data[2], data[3]);
+                    };
+                    this.BeginInvoke(action);
                 }
                 else
                 {

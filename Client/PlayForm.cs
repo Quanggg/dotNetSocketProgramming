@@ -31,9 +31,10 @@ namespace Client
             //{
             //    MainForm.panel.Invoke(new Action(() => MainForm.panel.Controls.Add(this)));
             //}
-
+            int i = Int16.Parse(playerIdx);
+            i++;
             this.nicknameLb.Text = nickname;
-            this.playerLb.Text = playerIdx;
+            this.playerLb.Text = i.ToString();
             noQuesLb.Text = numOfQues;
             //listenForQuestion();
         }
@@ -52,7 +53,6 @@ namespace Client
                 byte[] receiveBuffer = new byte[received];
                 Array.Copy(buffer, receiveBuffer, received);
                 string text = Encoding.ASCII.GetString(receiveBuffer);
-                MessageBox.Show(text);
                 try
                 {
                     if (text.StartsWith("winner"))
@@ -208,7 +208,7 @@ namespace Client
         }
         private void skipTurn()
         {
-            skipButton.Enabled = false;
+            resetState();
             allowSkip = false;
         }
     }

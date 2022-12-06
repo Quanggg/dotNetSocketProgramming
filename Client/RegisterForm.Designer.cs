@@ -35,21 +35,20 @@ namespace Client
             this.label1 = new System.Windows.Forms.Label();
             this.inputTb = new System.Windows.Forms.TextBox();
             this.loadingGif = new System.Windows.Forms.PictureBox();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.loadingGif)).BeginInit();
             this.SuspendLayout();
             // 
             // startButton
             // 
-            this.startButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.startButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.startButton.AutoSize = true;
             this.startButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(174)))), ((int)(((byte)(195)))), ((int)(((byte)(176)))));
             this.startButton.Font = new System.Drawing.Font("Bahnschrift", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.startButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(22)))), ((int)(((byte)(30)))));
-            this.startButton.Location = new System.Drawing.Point(275, 336);
+            this.startButton.Location = new System.Drawing.Point(125, 336);
             this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(250, 79);
+            this.startButton.Size = new System.Drawing.Size(550, 79);
             this.startButton.TabIndex = 1;
             this.startButton.Text = "Start";
             this.startButton.UseVisualStyleBackColor = false;
@@ -82,6 +81,8 @@ namespace Client
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.inputTb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inputTb.Font = new System.Drawing.Font("Bahnschrift", 15.75F);
+            this.inputTb.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(22)))), ((int)(((byte)(30)))));
             this.inputTb.Location = new System.Drawing.Point(275, 200);
             this.inputTb.MaxLength = 10;
             this.inputTb.Multiline = true;
@@ -105,6 +106,17 @@ namespace Client
             this.loadingGif.Visible = false;
             this.loadingGif.WaitOnLoad = true;
             // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("Berlin Sans FB", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.label2.Location = new System.Drawing.Point(125, 42);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(550, 71);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Who Wants to Be a Millionaire?";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // RegisterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -112,6 +124,7 @@ namespace Client
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(69)))), ((int)(((byte)(89)))));
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.loadingGif);
             this.Controls.Add(this.inputTb);
             this.Controls.Add(this.label1);
@@ -132,5 +145,6 @@ namespace Client
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox inputTb;
         private System.Windows.Forms.PictureBox loadingGif;
+        private System.Windows.Forms.Label label2;
     }
 }

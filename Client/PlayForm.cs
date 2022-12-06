@@ -12,9 +12,11 @@ namespace Client
 {
     public partial class PlayForm : Form
     {
+        private bool allowSkip = true;
         private const int Buffer_Size = 2048;
         private byte[] buffer = new byte[Buffer_Size];
         private string correctAns, ans0, ans1, ans2, ques;
+        private IAsyncResult pending;
         public PlayForm(string nickname, string numOfPlayer, string numOfQues, string playerIdx)
         {
             InitializeComponent();
@@ -38,29 +40,31 @@ namespace Client
 
         private void listenForQuestion()
         {
-            try
+
+            AsyncCallback asyncCallback = (param) =>
             {
-                AsyncCallback asyncCallback = (param) =>
+                int received = 0;
+                try
                 {
-                    int received = 0;
-                    try
+                    received = ClientSocket.clientSocket.EndReceive(param);
+                }
+                catch { }
+                byte[] receiveBuffer = new byte[received];
+                Array.Copy(buffer, receiveBuffer, received);
+                string text = Encoding.ASCII.GetString(receiveBuffer);
+                MessageBox.Show(text);
+                try
+                {
+                    if (text.StartsWith("winner"))
                     {
-                        received = ClientSocket.clientSocket.EndReceive(param);
+                        string[] data = text.Split('~');
+                        checkWinner(data[1]);
                     }
-                    catch { }
-                    byte[] receiveBuffer = new byte[received];
-                    Array.Copy(buffer, receiveBuffer, received);
-                    string text = Encoding.ASCII.GetString(receiveBuffer);
-                    try
+                    else
                     {
-                        if (text.StartsWith("winner"))
+                        string[] data = text.Split('~');
+                        if (data.Length == 5)
                         {
-                            string[] data = text.Split('~');
-                            checkWinner(data[1]);
-                        }
-                        else
-                        {
-                            string[] data = text.Split('~');
                             ques = data[0];
                             string[] ans = new string[4];
                             correctAns = data[1];
@@ -75,18 +79,20 @@ namespace Client
                             this.BeginInvoke((Action)(() => prepareQuestion(shuffledAns)));
                         }
                     }
-                    catch (Exception)
-                    {
-                    }
-                    
-                    listenForQuestion();
-                };
-                ClientSocket.clientSocket.BeginReceive(buffer, 0, Buffer_Size, System.Net.Sockets.SocketFlags.None, asyncCallback, null);
+                }
+                catch (Exception)
+                {
+                }
+
+                listenForQuestion();
+            };
+            try
+            {
+                pending = ClientSocket.clientSocket.BeginReceive(buffer, 0, Buffer_Size, System.Net.Sockets.SocketFlags.None, asyncCallback, null);
+
             }
             catch (Exception)
             {
-
-                throw;
             }
         }
 
@@ -99,6 +105,8 @@ namespace Client
             cBtn.Text = shuffledAns[2];
             dBtn.Text = shuffledAns[3];
             quizLb.Text = ques;
+            if (allowSkip)
+                skipButton.Enabled = true;
             //ansTopPanel.Invoke(new Action(() => ansTopPanel.Enabled = true));
             //ansBotPanel.Invoke(new Action(() => ansTopPanel.Enabled = true));
             //aBtn.Invoke(new Action(() => aBtn.Text = shuffledAns[0]));
@@ -112,8 +120,9 @@ namespace Client
         {
             if (aBtn.Text.Equals(correctAns))
             {
-                MessageBox.Show("Correct Answer");
+                MessageBox.Show("Your answer is Correct", "Congratulation");
                 ClientSocket.SendString("my_answer~" + aBtn.Text);
+                resetState();
             }
             else
             {
@@ -122,12 +131,16 @@ namespace Client
             }
 
         }
+
+
+
         private void bBtn_Click(object sender, EventArgs e)
         {
             if (bBtn.Text.Equals(correctAns))
             {
-                MessageBox.Show("Correct Answer");
+                MessageBox.Show("Your answer is Correct", "Congratulation");
                 ClientSocket.SendString("my_answer~" + bBtn.Text);
+                resetState();
             }
             else
             {
@@ -140,8 +153,9 @@ namespace Client
         {
             if (cBtn.Text.Equals(correctAns))
             {
-                MessageBox.Show("Correct Answer");
+                MessageBox.Show("Your answer is Correct", "Congratulation");
                 ClientSocket.SendString("my_answer~" + cBtn.Text);
+                resetState();
             }
             else
             {
@@ -159,8 +173,9 @@ namespace Client
         {
             if (dBtn.Text.Equals(correctAns))
             {
-                MessageBox.Show("Correct Answer");
+                MessageBox.Show("Your answer is Correct", "Congratulation");
                 ClientSocket.SendString("my_answer~" + dBtn.Text);
+                resetState();
             }
             else
             {
@@ -171,7 +186,8 @@ namespace Client
 
         private void checkWinner(string v)
         {
-            throw new NotImplementedException();
+            MessageBox.Show("You are the Winner", "Congratulation");
+            MainForm.OpenForm(new RegisterForm());
         }
 
         private void skipButton_Click(object sender, EventArgs e)
@@ -179,10 +195,21 @@ namespace Client
             ClientSocket.SendString("skip_turn");
             skipTurn();
         }
-
+        private void resetState()
+        {
+            ansTopPanel.Enabled = false;
+            ansBotPanel.Enabled = false;
+            aBtn.Text = "A";
+            bBtn.Text = "B";
+            cBtn.Text = "C";
+            dBtn.Text = "D";
+            quizLb.Text = "Waiting for your turn...";
+            skipButton.Enabled = false;
+        }
         private void skipTurn()
         {
             skipButton.Enabled = false;
+            allowSkip = false;
         }
     }
 }

@@ -51,6 +51,8 @@ namespace Client
             // quizLb
             // 
             this.quizLb.Dock = System.Windows.Forms.DockStyle.Top;
+            this.quizLb.Font = new System.Drawing.Font("Bahnschrift", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.quizLb.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
             this.quizLb.Location = new System.Drawing.Point(0, 83);
             this.quizLb.Name = "quizLb";
             this.quizLb.Size = new System.Drawing.Size(800, 95);
@@ -74,7 +76,9 @@ namespace Client
             // 
             // noQuesLb
             // 
-            this.noQuesLb.Location = new System.Drawing.Point(205, 9);
+            this.noQuesLb.Font = new System.Drawing.Font("Bahnschrift", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.noQuesLb.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.noQuesLb.Location = new System.Drawing.Point(247, 12);
             this.noQuesLb.Name = "noQuesLb";
             this.noQuesLb.Size = new System.Drawing.Size(40, 41);
             this.noQuesLb.TabIndex = 5;
@@ -84,9 +88,11 @@ namespace Client
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(246)))), ((int)(((byte)(224)))));
             this.label2.Location = new System.Drawing.Point(113, 23);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(86, 13);
+            this.label2.Size = new System.Drawing.Size(128, 19);
             this.label2.TabIndex = 4;
             this.label2.Text = "Total Question is";
             // 
@@ -94,7 +100,9 @@ namespace Client
             // 
             this.nicknameLb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.nicknameLb.Location = new System.Drawing.Point(625, 45);
+            this.nicknameLb.Font = new System.Drawing.Font("Bahnschrift", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nicknameLb.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.nicknameLb.Location = new System.Drawing.Point(541, 45);
             this.nicknameLb.Name = "nicknameLb";
             this.nicknameLb.Size = new System.Drawing.Size(117, 21);
             this.nicknameLb.TabIndex = 3;
@@ -103,6 +111,8 @@ namespace Client
             // 
             // playerLb
             // 
+            this.playerLb.Font = new System.Drawing.Font("Bahnschrift", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.playerLb.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
             this.playerLb.Location = new System.Drawing.Point(748, 9);
             this.playerLb.Name = "playerLb";
             this.playerLb.Size = new System.Drawing.Size(40, 41);
@@ -113,9 +123,11 @@ namespace Client
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(664, 12);
+            this.label1.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(246)))), ((int)(((byte)(224)))));
+            this.label1.Location = new System.Drawing.Point(625, 18);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(78, 13);
+            this.label1.Size = new System.Drawing.Size(117, 19);
             this.label1.TabIndex = 1;
             this.label1.Text = "You are player:";
             // 
@@ -202,7 +214,7 @@ namespace Client
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(69)))), ((int)(((byte)(89)))));
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.ansTopPanel);
             this.Controls.Add(this.ansBotPanel);

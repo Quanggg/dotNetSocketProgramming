@@ -53,7 +53,6 @@ namespace Client
         /// </summary>
         public static void Exit()
         {
-            SendString("exit"); // Tell the server we are exiting
             clientSocket.Shutdown(SocketShutdown.Both);
             clientSocket.Close();
         }

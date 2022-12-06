@@ -83,6 +83,7 @@ namespace Client
             this.inputTb.Name = "inputTb";
             this.inputTb.Size = new System.Drawing.Size(250, 40);
             this.inputTb.TabIndex = 4;
+            this.inputTb.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.inputTb_KeyPress);
             // 
             // loadingGif
             // 

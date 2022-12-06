@@ -38,7 +38,7 @@ namespace Client
             }
             this.startButton.Text = "Waiting for server...";
             this.startButton.Enabled = false;
-            this.loadingGif.Visible = true;
+            //this.loadingGif.Visible = true;
             //this.warnLb.Visible = false;
             this.inputTb.Enabled = false;
             joinGame(this.inputTb.Text);
@@ -127,6 +127,7 @@ namespace Client
                     resetState();
                 }
             };
+            ClientSocket.clientSocket.BeginReceive(buffer, 0, Buffer_Size, System.Net.Sockets.SocketFlags.None, asyncCallback, null);
         }
 
         private void resetState()
@@ -143,6 +144,12 @@ namespace Client
             if (Regex.IsMatch(text, "^[a-zA-Z0-9_]*$"))
                 return true;
             return false;
+        }
+
+        private void inputTb_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)13)
+                startButton.PerformClick();
         }
     }
 }

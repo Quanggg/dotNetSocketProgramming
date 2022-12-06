@@ -195,20 +195,20 @@ namespace Server
                 // Case 1: User answer the correct answer
                 // Update the game flow: remove this player out of the game, next player, next question
                 if (answer == correct_answer) {
-                    GameState.nextQuestion();
-                    GameState.nextPlayer();
                     byte[] data8 = Encoding.ASCII.GetBytes("correct");
                     GameState.SocketAndPlayerMapping[GameState.getCurrentPlayer()].Send(data8);
+                    GameState.nextQuestion();
+                    GameState.nextPlayer();
                 }
                 // Case 2: User answer the wrong answer
                 // Update the game flow: remove this player out of the game, next player, , next question
                 else
                 {
+                    byte[] data9 = Encoding.ASCII.GetBytes("wrong");
+                    GameState.SocketAndPlayerMapping[GameState.getCurrentPlayer()].Send(data9);
                     GameState.eliminatePlayer(GameState.getCurrentPlayer());
                     GameState.nextPlayer();
                     GameState.nextQuestion();
-                    byte[] data9 = Encoding.ASCII.GetBytes("wrong");
-                    GameState.SocketAndPlayerMapping[GameState.getCurrentPlayer()].Send(data9);
                 }
 
                 if (GameState.isWin())

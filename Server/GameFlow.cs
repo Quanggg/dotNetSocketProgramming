@@ -93,7 +93,7 @@ namespace Server
 
         public void nextPlayer()
         {
-            while (!setOfEliminatedPlayers.Contains(setOfPlayers[currentPlayer]))
+            while (setOfEliminatedPlayers.Contains(setOfPlayers[currentPlayer]))
             {
                 if (currentPlayer == setOfPlayers.Count- 1)
                 {
@@ -103,6 +103,14 @@ namespace Server
                 {
                     currentPlayer++;
                 }
+            }
+            if (currentPlayer == setOfPlayers.Count - 1)
+            {
+                currentPlayer = 0;
+            }
+            else
+            {
+                currentPlayer++;
             }
         }
 
@@ -120,10 +128,12 @@ namespace Server
         {
             if (setOfEliminatedPlayers.Count == setOfPlayers.Count - 1)
             {
+                Console.WriteLine(setOfEliminatedPlayers.Count);
                 return true;
             }
-            if (currentQuestion == setOfQuestions.Count - 1) 
-            { 
+            if (currentQuestion == setOfQuestions.Count - 1)
+            {
+                Console.WriteLine(setOfEliminatedPlayers.Count);
                 return true; 
             }
             return false;

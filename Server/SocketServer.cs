@@ -194,28 +194,30 @@ namespace Server
             else if (text.ToLower().StartsWith("my_answer~"))// User answer the question
             {
                 string answer = text.ToLower().Split("~")[1];
+                Console.WriteLine(answer);
                 string correct_answer = GameState.getCurrentQuestion().ToLower().Split("~")[1];
                 // Case 1: User answer the correct answer
                 // Update the game flow: remove this player out of the game, next player, next question
                 if (answer == correct_answer) {
-                    byte[] data8 = Encoding.ASCII.GetBytes("correct");
-                    GameState.SocketAndPlayerMapping[GameState.getCurrentPlayer()].Send(data8);
+                    Console.WriteLine("Correct");
                     GameState.nextQuestion();
+                    Console.WriteLine("a" + GameState.getCurrentPlayer());
                     GameState.nextPlayer();
+                    Console.WriteLine("b" + GameState.getCurrentPlayer());
                 }
                 // Case 2: User answer the wrong answer
                 // Update the game flow: remove this player out of the game, next player, , next question
                 else
                 {
-                    byte[] data9 = Encoding.ASCII.GetBytes("wrong");
-                    GameState.SocketAndPlayerMapping[GameState.getCurrentPlayer()].Send(data9);
+                    Console.WriteLine("Wrong");
                     GameState.eliminatePlayer(GameState.getCurrentPlayer());
                     GameState.nextPlayer();
                     GameState.nextQuestion();
                 }
-
+                Console.WriteLine(GameState.getCurrentPlayer());
                 if (GameState.isWin())
                 {
+                    Console.WriteLine("Win");
                     foreach (string player in GameState.setOfPlayers)
                     {
                         byte[] data1 = Encoding.ASCII.GetBytes("winner~" + GameState.currentPlayer);
@@ -224,8 +226,11 @@ namespace Server
                 }
                 else
                 {
+                    Console.WriteLine("No Win");
                     byte[] data2 = Encoding.ASCII.GetBytes(GameState.getCurrentQuestion());
                     GameState.SocketAndPlayerMapping[GameState.getCurrentPlayer()].Send(data2);
+                    Console.WriteLine(GameState.getCurrentPlayer());
+                    Console.WriteLine(GameState.getCurrentQuestion());
                 }
             }
 

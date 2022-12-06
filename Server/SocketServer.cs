@@ -197,6 +197,8 @@ namespace Server
                 if (answer == correct_answer) {
                     GameState.nextQuestion();
                     GameState.nextPlayer();
+                    byte[] data8 = Encoding.ASCII.GetBytes("correct");
+                    GameState.SocketAndPlayerMapping[GameState.getCurrentPlayer()].Send(data8);
                 }
                 // Case 2: User answer the wrong answer
                 // Update the game flow: remove this player out of the game, next player, , next question
@@ -205,6 +207,8 @@ namespace Server
                     GameState.eliminatePlayer(GameState.getCurrentPlayer());
                     GameState.nextPlayer();
                     GameState.nextQuestion();
+                    byte[] data9 = Encoding.ASCII.GetBytes("wrong");
+                    GameState.SocketAndPlayerMapping[GameState.getCurrentPlayer()].Send(data9);
                 }
 
                 if (GameState.isWin())

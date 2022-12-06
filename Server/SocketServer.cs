@@ -51,6 +51,7 @@ namespace Server
                 return;
             }
             Console.WriteLine("Setting up server...");
+            isListening = true;
             ServerSocket.Bind(new IPEndPoint(ServerIP,Port));
             ServerSocket.Listen(10);
             ServerSocket.BeginAccept(AcceptCallback, null);
@@ -64,15 +65,22 @@ namespace Server
             try
             {
                 current = ServerSocket.EndAccept(AR);
-            } catch (Exception e)
+                if (GameState.isStart) // New player cannot connect if the game is started
+                {
+                    byte[] data = Encoding.ASCII.GetBytes("The game is started, you cannot connect to the server");
+                    current.Send(data);
+                    current.Shutdown(SocketShutdown.Both);
+                    current.Close();
+                    return;
+                }
+            }
+            catch (Exception e)
             {
                 Console.WriteLine("Accept failed: {0}", e.Message);
                 return;
             }
-            ClientSockets.Add(current);
             current.BeginReceive(buffer, 0, BUFFER_SIZE, SocketFlags.None, ReceiveCallback, current);
             Console.WriteLine("Client {0} connected, waiting for request...", current.RemoteEndPoint);
-            // Start the timer to start the game => If the game start => Send the information to all sockets
             ServerSocket.BeginAccept(AcceptCallback, null);
         }
 
@@ -98,26 +106,44 @@ namespace Server
             string text = Encoding.ASCII.GetString(receiveBuffer);
             Console.WriteLine("Received Text: " + text);
 
-            if (text.ToLower() == "player has no answer") // Timeout 
+            if (text.ToLower().StartsWith("register_new_user:")) {
+                string newPlayerName = text.Split(' ')[1]; // Get the player name from response
+                if (GameState.addNewPlayer(newPlayerName, current))
+                {
+                    byte[] data = Encoding.ASCII.GetBytes("Failed");
+                    current.Send(data);
+                } else
+                {
+                    byte[] data = Encoding.ASCII.GetBytes("Successfully");
+                    current.Send(data);
+
+                    if (GameState.getNumberOfPlayers() == 1)
+                    {
+                        byte[] data2 = Encoding.ASCII.GetBytes("You are host");
+                        current.Send(data);
+                    }
+                }
+            } else if (text.ToLower() == "start_game")
+            {
+                // byte[] data = Encoding.ASCII.
+            }
+            else if (text.ToLower() == "no_answer") // Timeout 
             {
                 // Update the game flow: remove this player out of the game, next player, , next question
 
             }
-            else if (text.ToLower() == "Player skipped the turn") { 
+            else if (text.ToLower() == "skipped_the_turn")
+            {
                 // Update the game flow: next player, same question 
                 // Send the question to the next player
             }
-            else // User answer the question
+            else if (text.ToLower().StartsWith("my_answer_is:"))// User answer the question
             {
                 // Case 1: User answer the correct answer
                 // Update the game flow: remove this player out of the game, next player, next question
 
                 // Case 2: User answer the wrong answer
                 // Update the game flow: remove this player out of the game, next player, , next question
-                Console.WriteLine("Text is an invalid request");
-                byte[] data = Encoding.ASCII.GetBytes("Invalid request");
-                current.Send(data);
-                Console.WriteLine("Warning Sent");
             }
 
             current.BeginReceive(buffer, 0, BUFFER_SIZE, SocketFlags.None, ReceiveCallback, current);

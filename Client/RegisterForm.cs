@@ -74,7 +74,7 @@ namespace Client
                     resetState();
                 }
             };
-            if (!ClientSocket.isConnected)
+            if (ClientSocket.isConnected)
             {
                 ClientSocket.SendString("register~" + nickname);
                 ClientSocket.clientSocket.BeginReceive(buffer, 0, Buffer_Size, System.Net.Sockets.SocketFlags.None, asyncCallback, null);

@@ -7,17 +7,13 @@ namespace Server
     class Program
     {
         static Server server;
-        static Database db;
         static void Main(string[] args)
         {
             Console.Title = "Game server";
             server = new Server(3939);
             server.SetupServer();
-            db = new Database();
-            db.readAllQuizzes();
-            db.getAllQuizzes();
-            //Console.ReadLine();
-            server.CloseAllSockets();
+            Console.ReadLine();
+            //server.CloseAllSockets();
 
         }
     }

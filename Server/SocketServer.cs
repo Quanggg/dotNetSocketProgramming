@@ -40,7 +40,7 @@ namespace Server
             IPHostEntry hostEntry = Dns.GetHostEntry(Dns.GetHostName());
             ServerIP = hostEntry.AddressList[0];
 
-            ServerSocket = new Socket(ServerIP.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+            ServerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             ClientSockets = new List<Socket>();
 
         }
@@ -53,7 +53,7 @@ namespace Server
             }
             Console.WriteLine("Setting up server...");
             isListening = true;
-            ServerSocket.Bind(new IPEndPoint(ServerIP,Port));
+            ServerSocket.Bind(new IPEndPoint(IPAddress.Any,Port));
             ServerSocket.Listen(10);
             ServerSocket.BeginAccept(AcceptCallback, null);
             Console.WriteLine("Finish setting up server...");
@@ -62,7 +62,7 @@ namespace Server
         private void AcceptCallback(IAsyncResult AR)
         {
             Socket current;
-      
+            Console.WriteLine("AcceptCallback");
             try
             {
                 current = ServerSocket.EndAccept(AR);
@@ -104,17 +104,17 @@ namespace Server
             byte[] receiveBuffer = new byte[received];
             Array.Copy(buffer, receiveBuffer, received);
             string text = Encoding.ASCII.GetString(receiveBuffer);
-            Console.WriteLine("Received Text: " + text);
-
+            Console.WriteLine("Text: " + text);
             if (text.ToLower().StartsWith("register~")) {
-                string newPlayerName = text.Split(' ')[1]; // Get the player name from response
-                if (GameState.addNewPlayer(newPlayerName, current))
+                string newPlayerName = text.Split('~')[1]; // Get the player name from response
+                if (!GameState.addNewPlayer(newPlayerName, current))
                 {
-                    byte[] data = Encoding.ASCII.GetBytes("register~failed");
+                    Console.WriteLine("newPlayerName: " + newPlayerName);
+                    byte[] data = Encoding.ASCII.GetBytes("register_fail");
                     current.Send(data);
                 } else
                 {
-                    byte[] data4 = Encoding.ASCII.GetBytes("register~success");
+                    byte[] data4 = Encoding.ASCII.GetBytes("register_success");
                     if (GameState.getNumberOfPlayers() == 3)
                     {
                         GameState.Start();

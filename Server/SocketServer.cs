@@ -115,20 +115,24 @@ namespace Server
                 } else
                 {
                     byte[] data4 = Encoding.ASCII.GetBytes("register_success");
+                    current.Send(data4);    
                     if (GameState.getNumberOfPlayers() == 3)
                     {
                         GameState.Start();
+                        Console.WriteLine("Game started!");
 
                         // Announce to all players
                         for (int i = 0; i < GameState.setOfPlayers.Count;i++)
                         {
                             string playerName = GameState.setOfPlayers[i];
                             byte[] data1 = Encoding.ASCII.GetBytes(GameState.GameInformation+String.Format("~{0}", i));
+                            Console.WriteLine(playerName + GameState.GameInformation + String.Format("~{0}", i));
                             GameState.SocketAndPlayerMapping[playerName].Send(data1);
                         }
 
                         // Send question to the first user
                         byte[] data2 = Encoding.ASCII.GetBytes(GameState.getCurrentQuestion());
+                        Console.WriteLine(GameState.getCurrentPlayer() + " " + GameState.getCurrentQuestion());
                         GameState.SocketAndPlayerMapping[GameState.getCurrentPlayer()].Send(data2);
                     }
                 }

@@ -27,7 +27,7 @@ namespace Server
 
                 while (rdr.Read())
                 {
-                    string quiz = rdr[1].ToString() + "~" + rdr[2].ToString() + "~" + rdr[3].ToString() + "~" + rdr[4].ToString();
+                    string quiz = rdr[1].ToString() + "~" + rdr[2].ToString() + "~" + rdr[3].ToString() + "~" + rdr[4].ToString() + "~" + rdr[5].ToString();
                     quizzes.Add(quiz);
                 }
                 rdr.Close();
@@ -52,6 +52,10 @@ namespace Server
         {  
             Random rnd = new Random();
             List<string> subQuizzes = quizzes.OrderBy(x => rnd.Next()).Take(amount).ToList();
+            foreach (string quiz in subQuizzes)
+            {
+                Console.WriteLine(quiz);
+            }
             return subQuizzes;
         }
     }

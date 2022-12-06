@@ -22,6 +22,8 @@ namespace Server
 
         public List<string> setOfEliminatedPlayers;
 
+        public List<string> setOfSkippedPlayers;
+
         public Dictionary<string, Socket> SocketAndPlayerMapping;
 
         public List<string> setOfQuestions;
@@ -65,12 +67,13 @@ namespace Server
         public void Start()
         {
             isStart = true;
-            setOfQuestions = db.getRandomQuizzes(this.getNumberOfPlayers() * 4);
+            setOfQuestions = db.getRandomQuizzes(this.getNumberOfPlayers() * 3);
             Random rnd = new Random();
             setOfPlayers = setOfPlayers.OrderBy(x => rnd.Next()).ToList();
             currentPlayer = 0;
             currentQuestion = 0;
             setOfEliminatedPlayers = new List<string>();
+            setOfSkippedPlayers = new List<string>();
         }
 
         public string getCurrentQuestion()
@@ -106,6 +109,11 @@ namespace Server
         public void eliminatePlayer(string player)
         {
             setOfEliminatedPlayers.Add(player);
+        }
+
+        public void playerSkip(string player)
+        {
+            setOfSkippedPlayers.Add(player);
         }
 
         public bool isWin()

@@ -61,8 +61,9 @@ namespace Client
                 string text = Encoding.ASCII.GetString(receiveBuffer);
                 if (text.StartsWith("register_success"))
                 {
-                    this.startButton.Text = "Waiting for other to join...";
-                    startGame(nickname);
+                    this.startButton.Invoke(new Action(() => this.startButton.Text = "Waiting for other to join..."));
+                    resetState();
+                    //startGame(nickname);
                 }
                 else if (text.StartsWith("register_fail"))
                 {
@@ -132,11 +133,11 @@ namespace Client
 
         private void resetState()
         {
-            this.startButton.Text = "Start";
-            this.startButton.Enabled = true;
-            this.loadingGif.Visible = false;
+            this.startButton.Invoke(new Action(() => this.startButton.Text = "Start"));
+            this.startButton.Invoke(new Action(() => this.startButton.Enabled = true));
+            this.loadingGif.Invoke(new Action(() => this.loadingGif.Visible = false));
             //this.warnLb.Visible = false;
-            this.inputTb.Enabled = true;
+            this.inputTb.Invoke(new Action(() => this.inputTb.Enabled = true));
         }
 
         private bool checkNickName(string text)

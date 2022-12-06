@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net.Sockets;
 using System.Net;
+using System.Media;
 
 namespace Server
 {
@@ -80,7 +81,6 @@ namespace Server
                 return;
             }
             current.BeginReceive(buffer, 0, BUFFER_SIZE, SocketFlags.None, ReceiveCallback, current);
-            Console.WriteLine("Client {0} connected, waiting for request...", current.RemoteEndPoint);
             ServerSocket.BeginAccept(AcceptCallback, null);
         }
 
@@ -106,44 +106,105 @@ namespace Server
             string text = Encoding.ASCII.GetString(receiveBuffer);
             Console.WriteLine("Received Text: " + text);
 
-            if (text.ToLower().StartsWith("register_new_user:")) {
+            if (text.ToLower().StartsWith("register~")) {
                 string newPlayerName = text.Split(' ')[1]; // Get the player name from response
                 if (GameState.addNewPlayer(newPlayerName, current))
                 {
-                    byte[] data = Encoding.ASCII.GetBytes("Failed");
+                    byte[] data = Encoding.ASCII.GetBytes("register~failed");
                     current.Send(data);
                 } else
                 {
-                    byte[] data = Encoding.ASCII.GetBytes("Successfully");
-                    current.Send(data);
-
-                    if (GameState.getNumberOfPlayers() == 1)
+                    byte[] data4 = Encoding.ASCII.GetBytes("register~success");
+                    if (GameState.getNumberOfPlayers() == 3)
                     {
-                        byte[] data2 = Encoding.ASCII.GetBytes("You are host");
-                        current.Send(data);
+                        GameState.Start();
+
+                        // Announce to all players
+                        for (int i = 0; i < GameState.setOfPlayers.Count;i++)
+                        {
+                            string playerName = GameState.setOfPlayers[i];
+                            byte[] data1 = Encoding.ASCII.GetBytes(GameState.GameInformation+String.Format("~{0}", i));
+                            GameState.SocketAndPlayerMapping[playerName].Send(data1);
+                        }
+
+                        // Send question to the first user
+                        byte[] data2 = Encoding.ASCII.GetBytes(GameState.getCurrentQuestion());
+                        GameState.SocketAndPlayerMapping[GameState.getCurrentPlayer()].Send(data2);
                     }
                 }
-            } else if (text.ToLower() == "start_game")
-            {
-                // byte[] data = Encoding.ASCII.
-            }
+            } 
             else if (text.ToLower() == "no_answer") // Timeout 
             {
                 // Update the game flow: remove this player out of the game, next player, , next question
-
+                GameState.eliminatePlayer(GameState.getCurrentPlayer());
+                GameState.nextQuestion();
+                GameState.nextPlayer();
+                if (GameState.isWin())
+                {
+                    foreach(string player in GameState.setOfPlayers)
+                    {
+                        byte[] data1 = Encoding.ASCII.GetBytes("winner~" + GameState.currentPlayer);
+                        GameState.SocketAndPlayerMapping[player].Send(data1);
+                    }
+                }
+                else
+                {
+                    byte[] data2 = Encoding.ASCII.GetBytes(GameState.getCurrentQuestion());
+                    GameState.SocketAndPlayerMapping[GameState.getCurrentPlayer()].Send(data2);
+                }
             }
-            else if (text.ToLower() == "skipped_the_turn")
+            else if (text.ToLower() == "skip_turn")
             {
                 // Update the game flow: next player, same question 
                 // Send the question to the next player
+                GameState.nextPlayer();
+
+                if (GameState.isWin())
+                {
+                    foreach (string player in GameState.setOfPlayers)
+                    {
+                        byte[] data1 = Encoding.ASCII.GetBytes("winner~" + GameState.currentPlayer);
+                        GameState.SocketAndPlayerMapping[player].Send(data1);
+                    }
+                }
+                else
+                {
+                    byte[] data = Encoding.ASCII.GetBytes(GameState.getCurrentQuestion());
+                    GameState.SocketAndPlayerMapping[GameState.getCurrentPlayer()].Send(data);
+                }
             }
-            else if (text.ToLower().StartsWith("my_answer_is:"))// User answer the question
+            else if (text.ToLower().StartsWith("my_answer~"))// User answer the question
             {
+                string answer = text.ToLower().Split("~")[1];
+                string correct_answer = GameState.getCurrentQuestion().ToLower().Split("~")[1];
                 // Case 1: User answer the correct answer
                 // Update the game flow: remove this player out of the game, next player, next question
-
+                if (answer == correct_answer) {
+                    GameState.nextQuestion();
+                    GameState.nextPlayer();
+                }
                 // Case 2: User answer the wrong answer
                 // Update the game flow: remove this player out of the game, next player, , next question
+                else
+                {
+                    GameState.eliminatePlayer(GameState.getCurrentPlayer());
+                    GameState.nextPlayer();
+                    GameState.nextQuestion();
+                }
+
+                if (GameState.isWin())
+                {
+                    foreach (string player in GameState.setOfPlayers)
+                    {
+                        byte[] data1 = Encoding.ASCII.GetBytes("winner~" + GameState.currentPlayer);
+                        GameState.SocketAndPlayerMapping[player].Send(data1);
+                    }
+                }
+                else
+                {
+                    byte[] data2 = Encoding.ASCII.GetBytes(GameState.getCurrentQuestion());
+                    GameState.SocketAndPlayerMapping[GameState.getCurrentPlayer()].Send(data2);
+                }
             }
 
             current.BeginReceive(buffer, 0, BUFFER_SIZE, SocketFlags.None, ReceiveCallback, current);

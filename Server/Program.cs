@@ -14,8 +14,9 @@ namespace Server
             server = new Server(3939);
             server.SetupServer();
             db = new Database();
+            db.readAllQuizzes();
             db.getAllQuizzes();
-            Console.ReadLine();
+            //Console.ReadLine();
             server.CloseAllSockets();
 
         }

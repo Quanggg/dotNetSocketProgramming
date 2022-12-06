@@ -13,7 +13,7 @@ namespace Client
     public partial class PlayForm : Form
     {
         private bool allowSkip = true;
-        public PlayForm(string nickname)
+        public PlayForm(string nickname,string numOfPlayer, string numOfQues, string playerIdx)
         {
             InitializeComponent();
             this.nicknameLb.Text = nickname;

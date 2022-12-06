@@ -11,9 +11,9 @@ namespace Client
     class ClientSocket
     {
         public static bool isConnected = false;
-        private static readonly Socket clientSocket = new Socket
+        public static readonly Socket clientSocket = new Socket
             (AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-        private const int PORT = 100;
+        private const int PORT = 3939;
         public static async Task<bool> ConnectToServerAsync()
         {
             int attempts = 0;
@@ -56,7 +56,6 @@ namespace Client
             SendString("exit"); // Tell the server we are exiting
             clientSocket.Shutdown(SocketShutdown.Both);
             clientSocket.Close();
-            Environment.Exit(0);
         }
 
         private static void SendRequest()

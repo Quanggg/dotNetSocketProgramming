@@ -127,7 +127,7 @@ namespace Server
                         for (int i = 0; i < GameState.setOfPlayers.Count;i++)
                         {
                             string playerName = GameState.setOfPlayers[i];
-                            byte[] data1 = Encoding.ASCII.GetBytes("game~" + GameState.GameInformation + String.Format("{0}", i));
+                            byte[] data1 = Encoding.ASCII.GetBytes("game~" + GameState.GameInformation + String.Format("~{0}", i));
                             Console.WriteLine(playerName + GameState.GameInformation + String.Format("~{0}", i));
                             GameState.SocketAndPlayerMapping[playerName].Send(data1);
                         }
